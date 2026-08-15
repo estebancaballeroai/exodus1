@@ -1,27 +1,26 @@
-# EXODUS 2149 v1.5
+# EXODUS 2149 v2.5
 
-RPG spatial web a cartes et d20. Cette archive est volontairement plate: aucun sous-dossier.
+Branche narrative progressive basée sur la v2.0.
+
+## Nouveautés
+- Introduction + guide permanent
+- Relations multidimensionnelles
+- Conversations privées et secrets
+- Expéditions narratives à équipe de 3
+- Jauge de menace
+- 4 sites / 16 nœuds
+- 12 PNJ persistants
+- Rumeurs et actualités
+- Réseau social et réputations locales
+- Chronique persistante
+- Héritage
+- Mémorial et jalons temporels
+- Directeur narratif
+- Tension dramatique
+- Promesses et scènes contextuelles
 
 ## Lancer
 
-Ouvrir `index.html` sur GitHub Pages ou via un serveur web. Tous les fichiers doivent rester a la racine.
+Déposer tous les fichiers à la racine d’un dépôt GitHub Pages, ou servir le dossier avec un serveur HTTP.
 
-## Fichiers
-
-- `index.html` : structure de l interface
-- `styles.css` : mise en page responsive
-- `content.js` : contenu, cartes, evenements, equipage, modules
-- `engine.js` : moteur RPG, d20, combat, ressources, campagne
-- `app.js` : liaison moteur/interface et sauvegarde
-- `AUDIT.md` : resultats de l audit automatise
-- `SIMULATION.json` : statistiques de simulation
-
-## Version
-
-Ajoute campagne en 3 etapes et evenement special de Premier Contact, plus objectifs de victoire.
-
-## GitHub Pages
-
-1. Deposer tous les fichiers a la racine d un depot.
-2. Dans Settings > Pages, publier la branche principale depuis `/ (root)`.
-3. Ouvrir l URL Pages.
+Le bouton **Guide** reste accessible en bas à droite. L’introduction est rejouable depuis le panneau **Vie à bord**.

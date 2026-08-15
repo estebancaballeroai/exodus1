@@ -1,125 +1,65 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#07111d">
-  <meta name="description" content="EXODUS 2149 - RPG spatial a cartes et d20">
-  <title>EXODUS 2149 v1.5</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07111d">
+<title>EXODUS 2149</title><link rel="stylesheet" href="styles.css"><link id="manifestLink" rel="manifest" href="manifest.json">
 </head>
 <body>
-  <header class="site-head">
-    <div>
-      <span class="eyebrow">EXODUS 2149</span>
-      <h1>Chroniques d'Erebus <small>v1.5</small></h1>
-    </div>
-    <div id="bootState" class="boot">Moteur en chargement...</div>
-  </header>
-
-  <section id="startScreen" class="start-screen">
-    <div class="hero hero-start">
-      <img id="startImage" alt="Espace profond">
-      <div class="hero-fallback"></div>
-      <div class="hero-copy">
-        <span class="tag">CAMPAGNE SCIENCE-FICTION</span>
-        <h2>L'humanite vient d'ouvrir la porte des etoiles.</h2>
-        <p>Compose ton commandant, gere l'Asterion et utilise cartes, competences et d20 pour survivre aux premieres expeditions humaines au-dela du systeme solaire.</p>
+<header class="site-head"><div><span class="eyebrow">RPG SPATIAL · D20 · CARTES</span><h1>EXODUS 2149 <small id="versionLabel"></small></h1></div><span id="bootStatus" class="boot">Initialisation…</span></header>
+<main>
+<section id="startScreen" class="start-screen">
+  <section class="panel intro-callout"><div><strong>Nouvelle branche narrative</strong><p>Découvre le contexte avant de créer ton commandant, ou consulte le Guide à tout moment.</p></div><button id="introBtn" class="soft">Lire l’introduction</button></section>
+  <div class="hero hero-start"><div class="hero-fallback"></div><img id="startImage" alt="Espace"><div class="hero-copy"><span class="tag">EREBUS EXPEDITION</span><h2>Le Premier Contact n est que le commencement.</h2><p>Construis ton commandant, gere ton equipage et transforme une petite expedition en presence interstellaire.</p></div></div>
+  <div class="start-grid">
+    <section class="panel form-panel"><h2>Commandant</h2><label>Nom<input id="nameInput" value="Nael Orsini"></label><label>Origine<select id="originSelect"></select></label><label>Profession<select id="roleSelect"></select></label><label>Trait<select id="traitSelect"></select></label><label>Seed<input id="seedInput" value="EREBUS-2149"></label><div class="button-row"><button id="startBtn" class="primary">Nouvelle campagne</button><button id="loadBtn" class="soft">Charger</button></div></section>
+    <section class="panel summary-panel"><h2>Profil</h2><div id="creationSummary"></div><hr><p>Le moteur separe les regles, le contenu et l interface. La sauvegarde est locale au navigateur.</p></section>
+  </div>
+</section>
+<section id="game" class="game hidden">
+  <div class="game-top"><div><strong>ASTERION</strong><span>Expedition interstellaire</span></div><div id="topChips" class="chips"></div><button id="saveBtn" class="soft compact">Sauver</button></div>
+  <div class="game-grid">
+    <aside class="panel side-panel">
+      <div class="section-head"><h2>Commandement</h2></div><div class="section-body stack">
+      <section class="box"><h3 id="commanderName"></h3><p id="commanderMeta"></p><div id="statGrid" class="stat-grid"></div><h3 class="subhead">Competences · points <span id="skillPoints">0</span></h3><div id="skillGrid" class="skill-list"></div></section>
+      <section class="box"><h3>Asterion</h3><p>Coque <span id="hullText"></span></p><div class="meter hull"><span id="hullBar"></span></div><p>Boucliers <span id="shieldText"></span></p><div class="meter"><span id="shieldBar"></span></div><p>Carburant <span id="fuelText"></span></p><div class="meter fuel"><span id="fuelBar"></span></div><p>Fournitures <span id="suppliesText"></span></p><div class="meter supplies"><span id="suppliesBar"></span></div></section>
+      <section class="box"><h3>Destinations</h3><div id="destinationList" class="button-list"></div></section>
+      <section class="box"><h3>Actions</h3><div class="button-list"><button id="exploreBtn">Explorer (-1 fournit.)</button><button id="siteBtn">Site procedural (-2 fournit.)</button><button id="scanBtn">Scanner</button><button id="repairBtn">Reparer</button><button id="refuelBtn">Ravitailler carburant</button><button id="resupplyBtn">Acheter fournitures</button><button id="freightBtn">Mission de fret</button><button id="sellDataBtn">Vendre 1 donnee</button><button id="restBtn">Repos</button><button id="destinyBtn">Utiliser Destin</button></div></section>
+      <section class="box"><h3>Inventaire</h3><div id="inventoryList" class="module-list"></div></section>
+      <section class="box"><h3>Modules</h3><div id="moduleList" class="module-list"></div></section>
       </div>
-    </div>
-
-    <div class="start-grid">
-      <div class="panel form-panel">
-        <h2>Commandant</h2>
-        <label>Nom<input id="nameInput" value="Nael Orsini" maxlength="32"></label>
-        <label>Origine<select id="originSelect"></select></label>
-        <label>Profession<select id="roleSelect"></select></label>
-        <label>Trait<select id="traitSelect"></select></label>
-        <label id="seedField">Seed de campagne<input id="seedInput" value="EREBUS-2149"></label>
-        <div class="button-row">
-          <button id="startBtn" class="primary" type="button">Lancer l'expedition</button>
-          <button id="loadBtn" class="soft" type="button">Charger</button>
-          <button id="resetSaveBtn" class="danger" type="button">Effacer sauvegarde</button>
-        </div>
+    </aside>
+    <section class="panel scene-panel">
+      <div class="hero scene-hero"><div class="hero-fallback"></div><img id="sceneImage" alt="Scene"><div class="hero-copy"><span id="sceneTag" class="tag">MISSION</span><h2 id="sceneTitle">Erebus</h2><p id="sceneText"></p></div></div>
+      <div class="scene-body stack">
+        <div class="roll-grid"><div class="roll"><b>d20</b><span id="lastRoll">-</span></div><div class="roll"><b>Total</b><span id="lastTotal">-</span></div><div class="roll"><b>Carte</b><span id="activeCard">Aucune</span></div><div class="roll"><b>Phase</b><span id="phase">Exploration</span></div></div>
+        <div class="box"><h3>Resolution</h3><div id="outcome" class="outcome">Choisis une action.</div></div>
+        <div class="box"><h3>Decisions</h3><div id="eventActions" class="event-actions"></div></div>
+        <div id="combatBox" class="box hidden"><h3>Combat tactique</h3><div class="combat-grid"><div id="playerCombat" class="combat-card"></div><div id="enemyCombat" class="combat-card"></div></div><div id="combatActions" class="event-actions"></div></div>
       </div>
-      <div id="creationSummary" class="panel summary-panel"></div>
-    </div>
-  </section>
+    </section>
+    <aside class="panel side-panel right-panel"><div class="section-head"><h2>Cartes & monde</h2><button id="drawBtn" class="soft compact">Piocher</button></div><div class="section-body stack">
+      <div id="cardList" class="card-list"></div>
+      <section class="box"><h3>Campagne</h3><div id="campaignBox"></div></section>
+      <section id="missionSection" class="box"><h3>Missions</h3><div id="missionList" class="module-list"></div></section>
+      <section id="factionSection" class="box"><h3>Factions</h3><div id="factionList"></div><h3 class="subhead">Contrats</h3><div id="contractList" class="module-list"></div><h3 class="subhead">Marche</h3><div id="marketList" class="button-list"></div></section>
+      <section id="researchSection" class="box"><h3>Recherche</h3><div id="researchList" class="module-list"></div></section>
+      <section id="colonySection" class="box"><h3>Colonie</h3><div id="colonyBox"></div></section>
+      <section id="outpostSection" class="box"><h3>Avant-postes</h3><div id="outpostBox"></div></section>
 
-  <main id="game" class="game hidden">
-    <nav class="game-top">
-      <div><strong>ASTERION</strong><span id="versionLabel">v1.5</span></div>
-      <div id="topChips" class="chips"></div>
-      <button id="saveBtn" class="soft compact" type="button">Sauvegarder</button>
-    </nav>
-
-    <div class="game-grid">
-      <aside class="panel side-panel">
-        <div class="section-head"><h2>Commandement</h2></div>
-        <div class="section-body stack">
-          <div class="box"><h3 id="commanderName"></h3><p id="commanderMeta"></p></div>
-          <div id="statGrid" class="stat-grid"></div>
-          <div id="skillGrid" class="stat-grid"></div>
-          <div class="box ship-box">
-            <h3>Asterion</h3>
-            <p>Coque <span id="hullText"></span></p><div class="meter hull"><span id="hullBar"></span></div>
-            <p>Boucliers <span id="shieldText"></span></p><div class="meter shield"><span id="shieldBar"></span></div>
-            <p>Carburant <span id="fuelText"></span></p><div class="meter fuel"><span id="fuelBar"></span></div>
-          </div>
-          <div class="box"><h3>Destinations</h3><div id="destinationList" class="button-list"></div></div>
-          <div class="box"><h3>Operations</h3><div class="button-list">
-            <button id="exploreBtn" class="soft">Explorer ici</button>
-            <button id="scanBtn" class="soft">Scanner</button>
-            <button id="repairBtn" class="soft">Reparer</button>
-            <button id="refuelBtn" class="soft">Ravitailler</button>
-            <button id="restBtn" class="soft">Repos</button>
-          </div></div>
-        </div>
-      </aside>
-
-      <section class="panel scene-panel">
-        <div class="hero scene-hero">
-          <img id="sceneImage" alt="Scene de mission">
-          <div class="hero-fallback"></div>
-          <div class="hero-copy">
-            <span id="sceneTag" class="tag">MISSION</span>
-            <h2 id="sceneTitle">Systeme d'Erebus</h2>
-            <p id="sceneText">L'Asterion attend les ordres du commandant.</p>
-          </div>
-        </div>
-        <div class="scene-body stack">
-          <div class="roll-grid">
-            <div class="roll"><b>d20</b><span id="lastRoll">-</span></div>
-            <div class="roll"><b>Total</b><span id="lastTotal">-</span></div>
-            <div class="roll"><b>Carte</b><span id="activeCard">Aucune</span></div>
-            <div class="roll"><b>Phase</b><span id="phase">Exploration</span></div>
-          </div>
-          <div class="box"><h3>Resolution</h3><div id="outcome" class="outcome">Choisis une destination ou explore le secteur actuel.</div></div>
-          <div class="box"><h3>Decisions</h3><div id="eventActions" class="event-actions"></div></div>
-          <div id="combatBox" class="box hidden">
-            <h3>Combat tactique</h3>
-            <div class="combat-grid"><div id="playerCombat" class="combat-card"></div><div id="enemyCombat" class="combat-card"></div></div>
-            <div id="combatActions" class="event-actions"></div>
-          </div>
-        </div>
-      </section>
-
-      <aside class="panel side-panel">
-        <div class="section-head"><h2>Main de cartes</h2><button id="drawBtn" class="soft compact">Piocher</button></div>
-        <div class="section-body stack">
-          <div id="cardList" class="card-list"></div>
-          <section id="campaignSection" class="box"><h3>Campagne</h3><div id="campaignBox"></div></section>
-          <section id="moduleSection" class="box"><h3>Modules</h3><div id="moduleList" class="module-list"></div></section>
-          <section id="crewSection" class="box"><h3>Equipage</h3><div id="crewList" class="crew-list"></div></section>
-          <div class="box"><h3>Journal</h3><div id="logList" class="log"></div></div>
-        </div>
-      </aside>
-    </div>
-  </main>
-
-  <footer>EXODUS 2149 v1.5 - HTML/CSS/JavaScript, sans framework.</footer>
-  <script src="content.js"></script>
-  <script src="engine.js"></script>
-  <script src="app.js"></script>
-</body>
-</html>
+      <section id="narrativeSection" class="box"><h3>Vie à bord</h3><div id="narrativeStatus"></div><div id="narrativeActions" class="button-list"></div></section>
+      <section id="expeditionSection" class="box hidden"><h3>Expéditions narratives</h3><div id="expeditionBox"></div></section>
+      <section id="socialSection" class="box hidden"><h3>Réseau solaire</h3><div id="socialBox"></div></section>
+      <section id="legacySection" class="box hidden"><h3>Héritage & chronique</h3><div id="legacyBox"></div></section>
+      <section id="directorSection" class="box hidden"><h3>Directeur narratif</h3><div id="directorBox"></div></section>
+      <section class="box"><h3>Equipage</h3><div id="crewList" class="crew-list"></div></section>
+      <section class="box"><h3>Journal</h3><div id="logList" class="log"></div></section>
+      <button id="resetSaveBtn" class="danger compact">Effacer sauvegarde locale</button>
+    </div></aside>
+  </div>
+</section>
+</main>
+<button id="guideBtn" class="guide-fab" aria-label="Ouvrir le guide">Guide</button>
+<div id="narrativeModal" class="modal-layer hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><div class="modal-head"><h2 id="modalTitle">Narration</h2><button id="modalClose" class="soft compact" aria-label="Fermer">Fermer</button></div><div id="modalBody" class="modal-body"></div></div></div>
+<footer>EXODUS 2149 v<span id="footerVersion"></span> · HTML/CSS/JavaScript · GitHub Pages ready.</footer>
+<script src="content.js"></script><script src="narrative_content.js"></script><script src="engine.js"></script><script src="narrative.js"></script><script src="app.js"></script><script src="narrative_ui.js"></script>
+</body></html>
