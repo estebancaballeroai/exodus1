@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07111d">
+  <meta name="description" content="EXODUS 2149 - RPG spatial a cartes et d20">
+  <title>EXODUS 2149 v1.5</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-head">
+    <div>
+      <span class="eyebrow">EXODUS 2149</span>
+      <h1>Chroniques d'Erebus <small>v1.5</small></h1>
+    </div>
+    <div id="bootState" class="boot">Moteur en chargement...</div>
+  </header>
+
+  <section id="startScreen" class="start-screen">
+    <div class="hero hero-start">
+      <img id="startImage" alt="Espace profond">
+      <div class="hero-fallback"></div>
+      <div class="hero-copy">
+        <span class="tag">CAMPAGNE SCIENCE-FICTION</span>
+        <h2>L'humanite vient d'ouvrir la porte des etoiles.</h2>
+        <p>Compose ton commandant, gere l'Asterion et utilise cartes, competences et d20 pour survivre aux premieres expeditions humaines au-dela du systeme solaire.</p>
+      </div>
+    </div>
+
+    <div class="start-grid">
+      <div class="panel form-panel">
+        <h2>Commandant</h2>
+        <label>Nom<input id="nameInput" value="Nael Orsini" maxlength="32"></label>
+        <label>Origine<select id="originSelect"></select></label>
+        <label>Profession<select id="roleSelect"></select></label>
+        <label>Trait<select id="traitSelect"></select></label>
+        <label id="seedField">Seed de campagne<input id="seedInput" value="EREBUS-2149"></label>
+        <div class="button-row">
+          <button id="startBtn" class="primary" type="button">Lancer l'expedition</button>
+          <button id="loadBtn" class="soft" type="button">Charger</button>
+          <button id="resetSaveBtn" class="danger" type="button">Effacer sauvegarde</button>
+        </div>
+      </div>
+      <div id="creationSummary" class="panel summary-panel"></div>
+    </div>
+  </section>
+
+  <main id="game" class="game hidden">
+    <nav class="game-top">
+      <div><strong>ASTERION</strong><span id="versionLabel">v1.5</span></div>
+      <div id="topChips" class="chips"></div>
+      <button id="saveBtn" class="soft compact" type="button">Sauvegarder</button>
+    </nav>
+
+    <div class="game-grid">
+      <aside class="panel side-panel">
+        <div class="section-head"><h2>Commandement</h2></div>
+        <div class="section-body stack">
+          <div class="box"><h3 id="commanderName"></h3><p id="commanderMeta"></p></div>
+          <div id="statGrid" class="stat-grid"></div>
+          <div id="skillGrid" class="stat-grid"></div>
+          <div class="box ship-box">
+            <h3>Asterion</h3>
+            <p>Coque <span id="hullText"></span></p><div class="meter hull"><span id="hullBar"></span></div>
+            <p>Boucliers <span id="shieldText"></span></p><div class="meter shield"><span id="shieldBar"></span></div>
+            <p>Carburant <span id="fuelText"></span></p><div class="meter fuel"><span id="fuelBar"></span></div>
+          </div>
+          <div class="box"><h3>Destinations</h3><div id="destinationList" class="button-list"></div></div>
+          <div class="box"><h3>Operations</h3><div class="button-list">
+            <button id="exploreBtn" class="soft">Explorer ici</button>
+            <button id="scanBtn" class="soft">Scanner</button>
+            <button id="repairBtn" class="soft">Reparer</button>
+            <button id="refuelBtn" class="soft">Ravitailler</button>
+            <button id="restBtn" class="soft">Repos</button>
+          </div></div>
+        </div>
+      </aside>
+
+      <section class="panel scene-panel">
+        <div class="hero scene-hero">
+          <img id="sceneImage" alt="Scene de mission">
+          <div class="hero-fallback"></div>
+          <div class="hero-copy">
+            <span id="sceneTag" class="tag">MISSION</span>
+            <h2 id="sceneTitle">Systeme d'Erebus</h2>
+            <p id="sceneText">L'Asterion attend les ordres du commandant.</p>
+          </div>
+        </div>
+        <div class="scene-body stack">
+          <div class="roll-grid">
+            <div class="roll"><b>d20</b><span id="lastRoll">-</span></div>
+            <div class="roll"><b>Total</b><span id="lastTotal">-</span></div>
+            <div class="roll"><b>Carte</b><span id="activeCard">Aucune</span></div>
+            <div class="roll"><b>Phase</b><span id="phase">Exploration</span></div>
+          </div>
+          <div class="box"><h3>Resolution</h3><div id="outcome" class="outcome">Choisis une destination ou explore le secteur actuel.</div></div>
+          <div class="box"><h3>Decisions</h3><div id="eventActions" class="event-actions"></div></div>
+          <div id="combatBox" class="box hidden">
+            <h3>Combat tactique</h3>
+            <div class="combat-grid"><div id="playerCombat" class="combat-card"></div><div id="enemyCombat" class="combat-card"></div></div>
+            <div id="combatActions" class="event-actions"></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel side-panel">
+        <div class="section-head"><h2>Main de cartes</h2><button id="drawBtn" class="soft compact">Piocher</button></div>
+        <div class="section-body stack">
+          <div id="cardList" class="card-list"></div>
+          <section id="campaignSection" class="box"><h3>Campagne</h3><div id="campaignBox"></div></section>
+          <section id="moduleSection" class="box"><h3>Modules</h3><div id="moduleList" class="module-list"></div></section>
+          <section id="crewSection" class="box"><h3>Equipage</h3><div id="crewList" class="crew-list"></div></section>
+          <div class="box"><h3>Journal</h3><div id="logList" class="log"></div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>EXODUS 2149 v1.5 - HTML/CSS/JavaScript, sans framework.</footer>
+  <script src="content.js"></script>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

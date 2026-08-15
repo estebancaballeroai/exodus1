@@ -1,0 +1,16 @@
+{
+  "runs": 600,
+  "errors": 0,
+  "destroyedPct": 0.2,
+  "campaignCompletePct": 99.2,
+  "avgDay": 18.3,
+  "avgSteps": 39.4,
+  "avgCredits": 41.1,
+  "avgData": 21.8,
+  "avgReputation": 7.3,
+  "avgHull": 16.2,
+  "avgFuel": 3.6,
+  "avgCombats": 0.51,
+  "avgInstalledModules": 1.67,
+  "avgMaxStress": 35.7
+}
